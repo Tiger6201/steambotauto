@@ -1,0 +1,130 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+.navbar{
+  margin-bottom: 20px;
+  border: black 1px solid;
+}
+.formAddBot{
+  height: 230px;
+  background-color: #343a40;
+  padding: 10px;
+  border: #353131 solid 1px;
+  box-shadow: inset 0.5px 0.5px 1px 1px rgba(81, 82, 78, 0.58);
+  border-radius: 0 0 10px 10px;
+      transition: opacity 0.5s ease-in;
+      opacity: 1;
+}
+.btnAddingBot{
+  color: rgb(136, 186, 60);
+    width: 100%;
+    height: 1.5em;
+    display: flex;
+    justify-content: center;
+}
+
+.navbarbot{
+  box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 1px;
+}
+
+.userstatus {
+  padding: 13px;
+  border: #201f1f 1px solid;
+    border-radius: 2px;
+}
+
+.games{
+
+  color:#90ba3c;
+  margin: auto;
+}
+
+.form-control2{
+  color: #90ba3c;
+  background-color: #454b50;
+  border: 2px solid #303234;
+  display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-status{
+  color: #3c9aba;
+  background-color: #454b50;
+  border: 2px solid #303234;
+  display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.gamelist{
+  padding: initial;
+}
+
+.games ul{
+  list-style: none;
+  margin: auto;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body{
+  background: url('https://wallpaperbro.com/img/453678.png') center center fixed no-repeat;
+    background-color: #000;
+    background-size: cover;
+    color: #b5babb;
+}
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #111010;
+}
+p, h1, a{
+  color: white
+}
+
