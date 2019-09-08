@@ -2,12 +2,12 @@ import * as types from "../constants/index";
 import axios from 'axios';
 
 const port = process.env.PORT || 3333;
-
+const url = port === 3333 ? `http://localhost:${port}` : "";
 export const addBot = (bot) => {
     return dispatch => {
         dispatch(addBotStarted(bot));
         axios
-            .post(`http://localhost:${port}/api/connect`, {
+            .post(`${url}/api/connect`, {
 
                 "user": bot.user,
                 "password": bot.password,
@@ -52,7 +52,7 @@ export const setBot = (bot) => {
         dispatch(setBotStarted(bot));
 
         axios
-            .post(`http://localhost:${port}/api/configuser`, {
+            .post(`${url}/api/configuser`, {
                 "user": bot.user,
                 "status": bot.status,
                 "games": bot.games
@@ -88,7 +88,7 @@ export const getBot = () => {
         dispatch(getBotStarted());
 
         axios
-            .get(`http://localhost:${port}/api/list`)
+            .get(`${url}/api/list`)
             .then(res => {
                 dispatch(getBotSuccess(res.data.users));
             })
