@@ -1,8 +1,8 @@
 import * as types from "../constants/index";
 import axios from 'axios';
-
+import os from 'os';
 const port = process.env.PORT || 3333;
-const url = port === 3333 ? `http://localhost:${port}` : "";
+const url = os.hostname() === "localhost" ? `http://localhost:${port}` : "";
 export const addBot = (bot) => {
     return dispatch => {
         dispatch(addBotStarted(bot));

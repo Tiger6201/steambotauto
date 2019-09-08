@@ -4,7 +4,6 @@ import Main from '../components/main-home';
 import Footer from '../components/footer';
 class Home extends Component {
     render() {
-
         return (
             <div>
                 <Header />
