@@ -1,5 +1,5 @@
 # steambotauto
-Steambotauto is a appplication to boost your hours on steam that you can desploy on heroku.
+Steambotauto is a appplication to boost your hours on steam that you can deploy on heroku.
 Heroku exemple:
 https://steambotauto.herokuapp.com
 
