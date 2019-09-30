@@ -61,6 +61,10 @@
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+.form-steamguard{
+  margin: 0px 5px;
+}
 .form-status{
   color: #3c9aba;
   background-color: #454b50;
@@ -111,7 +115,7 @@
 }
 
 body{
-  background: url('https://wallpaperbro.com/img/453678.png') center center fixed no-repeat;
+  background: url('./steam.png') center center fixed no-repeat;
     background-color: #000;
     background-size: cover;
     color: #b5babb;
@@ -128,3 +132,7 @@ p, h1, a{
   color: white
 }
 
+.steamguard-form{
+  margin: auto;
+  display: flex;
+}

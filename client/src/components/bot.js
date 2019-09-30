@@ -2,6 +2,25 @@ import React, { Component } from 'react';
 
 class Bot extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            steamguard: ''
+        }
+    }
+
+
+    handleChange(e, key) {
+        switch (key) {
+            case 'steamguard':
+                this.setState({ steamguard: e.currentTarget.value });
+                break;
+            default:
+                break;
+        }
+    }
+
     handleSelectGame(e, user, index) {
         const { games, actions, status } = this.props;
 
@@ -29,7 +48,7 @@ class Bot extends Component {
         const games = [730, 440, 221100, 252490, ''];
         return games.map(game => {
             if (game === ga) {
-                return('');
+                return ('');
             } else {
                 return (<option>{game}</option>);
             }
@@ -37,7 +56,7 @@ class Bot extends Component {
     }
 
     render() {
-        const { avatar, userName, games } = this.props;
+        const { avatar, userName, games, steamGuardNeeded, actions } = this.props;
         return (
             <nav className="navbar navbar-expand-sm navbar-dark bg-dark navbarbot">
                 <div className="flex-column text-center userstatus">
@@ -48,19 +67,22 @@ class Bot extends Component {
                         <option>offline</option>
                     </select>
                 </div>
-                <div className="flex-column games">
-                    <p>Games playing <ion-icon name="tv"></ion-icon></p>
-                    {games.map((game, index) => {
-                        return (
-                            <ul className="gamelist">
-                                <select className="form-control2" onChange={(e) => this.handleSelectGame(e, userName, index)}>
-                                    <option>{game}</option>
-                                    {this.renderGames(games[index])}
-                                </select>
-                            </ul>)
-                    })}
+                {steamGuardNeeded === true ? <div className="steamguard-form"><input onChange={(e)=> this.handleChange(e, 'steamguard') } class="form-control form-steamguard" placeholder="SteamGuard" value={this.state.steamguard}></input>
+                    <button type="submit" class="btn btn-primary" onClick={() => actions.submitSteamGuard({ user: userName, steamGuardNeeded: this.state.steamguard })}>Submit</button>
+                </div> :
+                    <div className="flex-column games">
+                        <p>Games playing <ion-icon name="tv"></ion-icon></p>
+                        {games.map((game, index) => {
+                            return (
+                                <ul className="gamelist">
+                                    <select className="form-control2" onChange={(e) => this.handleSelectGame(e, userName, index)}>
+                                        <option>{game}</option>
+                                        {this.renderGames(games[index])}
+                                    </select>
+                                </ul>)
+                        })}
 
-                </div>
+                    </div>}
                 <button type="button" className="close" aria-label="Close">
                     <ion-icon name="close-circle" size="large"></ion-icon>
                 </button>

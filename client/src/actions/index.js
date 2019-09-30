@@ -14,10 +14,10 @@ export const addBot = (bot) => {
             })
             .then(res => {
                 console.log(res.data);
-                if(res.data.connected === true){
+                if (res.data.connected === true || res.data.steamguard === true) {
                     dispatch(addBotSuccess(res.data.user));
-                   
-                }else{
+
+                } else {
                     console.log('rip')
                     dispatch(addBotError('err'));
                 }
@@ -46,6 +46,48 @@ export const addBotError = (error) => ({
     error,
 })
 
+export const submitSteamGuard = (bot) => {
+    return dispatch => {
+        dispatch(submitSteamGuardStarted(bot));
+        axios
+            .post(`${url}/api/steamguard`, {
+
+                "user": bot.user,
+                "steamGuardNeeded": bot.steamGuardNeeded
+            })
+            .then(res => {
+                console.log(res.data);
+                if (res.data.connected === true) {
+                    dispatch(submitSteamGuardSuccess(res.data.user));
+
+                } else {
+                    console.log('rip')
+                    dispatch(submitSteamGuardError('err'));
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch(submitSteamGuardError(err));
+            })
+
+    }
+}
+
+export const submitSteamGuardStarted = (bot) => ({
+    type: types.STEAMGUARD_BOT_STARTED,
+    loading: true,
+    bot
+})
+export const submitSteamGuardSuccess = (bot) => ({
+    type: types.STEAMGUARD_BOT_SUCCESS,
+    loading: false,
+    bot
+})
+export const submitSteamGuardError = (error) => ({
+    type: types.STEAMGUARD_BOT_ERROR,
+    loading: false,
+    error,
+})
 
 export const setBot = (bot) => {
     return dispatch => {

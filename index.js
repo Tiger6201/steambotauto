@@ -29,16 +29,18 @@ app.get('/api/list', (req, res) => {
     users['users'] = [];
 
     bots.map(user => {
-
+        let tempUser = {};
         if (user.user._playingAppIds.length === 0)
             user.user._playingAppIds = ['', '', ''];
 
-        users['users'].push({
-            user: user.details.user,
-            games: user.user._playingAppIds,
-            status: user.status,
-            avatar: user.avatar
-        });
+        if (user.steamGuardNeeded) {
+            tempUser.steamGuardNeeded = true;
+        }
+        tempUser.user = user.details.user;
+        tempUser.games = user.user._playingAppIds;
+        tempUser.status = user.status;
+        tempUser.avatar = user.avatar;
+        users['users'].push(tempUser);
 
 
     })
@@ -47,7 +49,7 @@ app.get('/api/list', (req, res) => {
 
 })
 
-if(process.env.NODE_ENV === "production"){
+if (process.env.NODE_ENV === "production") {
 
     app.use(express.static('client/build'))
 
@@ -109,12 +111,36 @@ app.post('/api/connect', (req, res) => {
 
     bot.connect(() => {
         console.log('Disconnected');
-    }).then(() => {
-        res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status } }))
+    }).then((steamguard) => {
+        if (steamguard === "steamguard") {
+            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status, steamGuardNeeded:true }  }));
+        } else {
+            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status } }))
+        }
         bots.push(bot)
     }).catch(err => {
         res.send('Wrong user or password');
-
     })
 
+})
+
+app.post('/api/steamguard', (req, res) => {
+    let userExists = false;
+    let tempUser = null;
+    bots.forEach(user => {
+        if (user.details.user === req.body.user) {
+            userExists = true;
+            tempUser = user;
+        }
+    })
+
+    if (userExists === true && tempUser.steamGuardNeeded) {
+        tempUser.steamGuardNeeded(req.body.steamGuardNeeded).then((bot) => {
+            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status } }));
+        }).catch((err) => {
+            res.send({ connected: false , message: err})
+        })
+    } else {
+        res.send({ connected: false })
+    }
 })

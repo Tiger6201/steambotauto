@@ -35,6 +35,7 @@ class NavBot extends Component {
             userName={bot.user}
             games={bot.games}
             status={bot.status}
+            steamGuardNeeded={bot.steamGuardNeeded}
             actions={actions}
           />
           {this.renderAddBot()}
@@ -45,6 +46,7 @@ class NavBot extends Component {
         userName={bot.user}
         games={bot.games}
         status={bot.status}
+        steamGuardNeeded={bot.steamGuardNeeded}
         actions={actions}
       />)
 

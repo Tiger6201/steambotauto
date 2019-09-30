@@ -8,6 +8,8 @@ class steamBot {
         this.avatar = '';
         this.status = '';
         this.games = this.user._playingAppIds;
+        this.steamGuardNeeded = null;
+        this.wrongSteamGuard = null;
     }
 
     connect(callback) {
@@ -32,7 +34,9 @@ class steamBot {
                     return reject('anonymous');
                 }
 
+                this.steamGuardNeeded = null;
                 this.connected = true;
+
                 this.user.getPersonas([this.user.logOnResult.client_supplied_steamid], (err, personas) => {
                     if (err) {
                     } else {
@@ -56,6 +60,36 @@ class steamBot {
                 console.log('blocked:', blocked)
                 console.log('current playing:', playingApp)
             })
+
+            this.user.on('steamGuard', (domain, callback, lastCodeWrong) => {
+                console.log('steamguard please')
+                if (lastCodeWrong === true) {
+                    this.wrongSteamGuard('wrong steamguard')
+                    this.wrongSteamGuard = null;
+                }
+                this.steamGuardNeeded = (code) => {
+                    return new Promise((resolve, reject) => {
+                        this.wrongSteamGuard = reject;
+                        this.user.on('loggedOn', (details) => {
+
+                            this.user.getPersonas([this.user.logOnResult.client_supplied_steamid], (err, personas) => {
+                                if (err) {
+                                } else {
+                                    this.avatar = personas[this.user.logOnResult.client_supplied_steamid].avatar_url_medium;
+                                    this.status = 'online';
+                                    this.changeStatus(1)
+                                }
+                                return resolve(this);
+                            })
+
+
+                        })
+                        callback(code);
+                    })
+                };
+
+                resolve('steamguard');
+            });
         })
 
     }
