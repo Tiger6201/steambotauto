@@ -5,6 +5,8 @@ const port = process.env.PORT || 3333
 const SteamUser = require('steam-user');
 const steamBot = require('./class/steamBot');
 const path = require('path');
+let hostName = null;
+var http = require("http");
 
 const app = express();
 app.listen(port, () => console.log('Server running on port', port));
@@ -18,8 +20,13 @@ const cors = function (req, res, next) {
 
     next()
 }
+
 app.use(express.json())
 app.use(cors);
+app.use((req, res, next) => {
+    hostName = req.headers.host;
+    next();
+})
 
 /////////API/////////
 let bots = [];
@@ -113,7 +120,7 @@ app.post('/api/connect', (req, res) => {
         console.log('Disconnected');
     }).then((steamguard) => {
         if (steamguard === "steamguard") {
-            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status, steamGuardNeeded:true }  }));
+            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status, steamGuardNeeded: true } }));
         } else {
             res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status } }))
         }
@@ -138,9 +145,18 @@ app.post('/api/steamguard', (req, res) => {
         tempUser.steamGuardNeeded(req.body.steamGuardNeeded).then((bot) => {
             res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status } }));
         }).catch((err) => {
-            res.send({ connected: false , message: err})
+            res.send({ connected: false, message: err })
         })
     } else {
         res.send({ connected: false })
     }
 })
+
+// keeps heroku app alive
+setInterval(() => {
+
+    if (hostName) {
+        http.get("https://" + hostName);
+    }
+
+}, 300000);
