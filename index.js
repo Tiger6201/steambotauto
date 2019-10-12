@@ -156,7 +156,7 @@ app.post('/api/steamguard', (req, res) => {
 setInterval(() => {
 
     if (hostName) {
-        http.get("https://" + hostName);
+        http.get("http://" + hostName);
     }
 
 }, 300000);
