@@ -55,6 +55,7 @@ function reducer(state = initialState, action) {
                 bots: action.bot
             }
         case types.STEAMGUARD_BOT_SUCCESS:
+
             const tempBots2 = state.bots.map(item => {
                 if (item.user === action.bot.user) {
                     return action.bot
@@ -65,6 +66,21 @@ function reducer(state = initialState, action) {
                 ...state,
                 bots: tempBots2
             }
+
+        case types.REMOVE_BOT_SUCCESS:
+
+            let tempBots3 = [];
+            state.bots.forEach((item, index) => {
+                if (item.user !== action.bot.user) {
+                    tempBots3.push(item);
+                }
+            })
+
+            return {
+                ...state,
+                bots: tempBots3
+            }
+
         default:
             return state;
     }

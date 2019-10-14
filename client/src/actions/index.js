@@ -159,6 +159,40 @@ export const showAddField = () => ({
     type: types.SHOW_ADD_FIELD
 })
 
-export const hideAddFiled = () => ({
+export const hideAddField = () => ({
     type: types.HIDE_ADD_FIELD
+})
+
+
+export const removeBot = (bot) => {
+    return dispatch => {
+        dispatch(removeBotStarted(bot));
+
+        axios
+            .post(`${url}/api/removebot`, {
+                "user": bot.user
+            })
+            .then(res => {
+                dispatch(removeBotSuccess(bot));
+            })
+            .catch(err => {
+                dispatch(removeBotError(err));
+            })
+
+    }
+}
+export const removeBotStarted = (bot) => ({
+    type: types.REMOVE_BOT_STARTED,
+    loading: true,
+    bot
+})
+export const removeBotSuccess = (bot) => ({
+    type: types.REMOVE_BOT_SUCCESS,
+    loading: false,
+    bot
+})
+export const removeBotError = (error) => ({
+    type: types.REMOVE_BOT_ERROR,
+    loading: false,
+    error,
 })

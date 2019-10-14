@@ -83,7 +83,7 @@ class Bot extends Component {
                         })}
 
                     </div>}
-                <button type="button" className="close" aria-label="Close">
+                <button onClick={()=> actions.removeBot({user: userName})} type="button" className="close" aria-label="Close">
                     <ion-icon name="close-circle" size="large"></ion-icon>
                 </button>
             </nav>

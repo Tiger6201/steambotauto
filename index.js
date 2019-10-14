@@ -152,6 +152,30 @@ app.post('/api/steamguard', (req, res) => {
     }
 })
 
+app.post('/api/removebot', (req, res) => {
+
+    let userExists = false;
+    let indexAccount = null;
+    let tempUser = null;
+
+    bots.forEach((user, index) => {
+        if (user.details.user === req.body.user) {
+            userExists = true;
+            tempUser = user;
+            indexAccount = index;
+        }
+    })
+
+    if (userExists === true) {
+        bots[indexAccount].user.logOff();
+        bots.splice(indexAccount, 1);
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+
+})
+
 // keeps heroku app alive
 setInterval(() => {
 
