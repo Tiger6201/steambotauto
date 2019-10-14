@@ -12,6 +12,5 @@ https://steambotauto.herokuapp.com
 
 # Future enhancements
 - fix some bugs
-- feature: delete account
 - have more games choice
 - ...
