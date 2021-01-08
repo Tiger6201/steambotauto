@@ -38,7 +38,7 @@ app.get('/api/list', (req, res) => {
     bots.map(user => {
         let tempUser = {};
         if (user.user._playingAppIds.length === 0)
-            user.user._playingAppIds = ['', '', ''];
+            user.user._playingAppIds = [];
 
         if (user.steamGuardNeeded) {
             tempUser.steamGuardNeeded = true;
@@ -56,7 +56,7 @@ app.get('/api/list', (req, res) => {
 
 })
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production" || true) {
 
     app.use(express.static('client/build'))
 

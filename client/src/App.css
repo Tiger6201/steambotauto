@@ -41,7 +41,6 @@
 }
 
 .games{
-
   color:#90ba3c;
   margin: auto;
 }
@@ -135,4 +134,33 @@ p, h1, a{
 .steamguard-form{
   margin: auto;
   display: flex;
+}
+
+.button-save{
+    display: block;
+    margin: 10px auto;
+    border: none;
+    background: #9ee432;
+    border-radius: 3px;
+    font-size: medium;
+    color: black;
+    opacity: 1;
+}
+.button-hide {
+  display: none;
+}
+.Add-game{
+  font-size: smaller;
+    cursor: pointer;
+    color: #8fda1e;
+    text-align: center;
+    padding: 5px;
+    padding-right: 16px;
+}
+
+.delete-game{
+  cursor: pointer;
+  margin-left: 5px;
+  color: #d6d5d5;
+  
 }

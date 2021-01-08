@@ -6,7 +6,10 @@ class Bot extends Component {
         super(props)
 
         this.state = {
-            steamguard: ''
+            steamguard: '',
+            needToUpdate: false,
+            games:[],
+            undoGames:[]
         }
     }
 
@@ -35,6 +38,10 @@ class Bot extends Component {
 
     }
 
+    needToUpdate(){
+        this.setState({needToUpdate:true});
+    }
+
     handleSelectStatus(e, user) {
         const { games, actions } = this.props;
         actions.setBot({
@@ -43,16 +50,64 @@ class Bot extends Component {
             games
         })
     }
+    handleChangeGame(event, index)
+    {
+        if(index === undefined){
+           this.setState({games:[event.target.value]})
+        }else{ 
+            const {games} = this.state;
+            games[index] = event.target.value;
+            this.setState({games})
+        }
+       this.needToUpdate();
+        console.log(this.state.games)
+    }
+
+    addGame(){
+        let tempGames = this.state.games;
+        tempGames.push('');
+        this.setState({games:tempGames})
+        this.needToUpdate();
+    }
+
+    deleteGame(index){
+        let tempGames = this.state.games;
+        tempGames.splice(index,1);
+        this.setState({games:tempGames});
+        this.needToUpdate();
+    }
 
     renderGames(ga) {
-        const games = [730, 440, 221100, 252490, ''];
-        return games.map(game => {
-            if (game === ga) {
-                return ('');
-            } else {
-                return (<option>{game}</option>);
-            }
+        const {games} = this.state;
+        if(games.length){
+            return (<div>{games.map((item, index)=>{
+                return (<div style={{"display":"block"}}><input key={index} onChange={(event)=>this.handleChangeGame(event, index)} value={item} /><span className="delete-game" onClick={() => this.deleteGame(index)}>x</span></div>) 
+            })}<p className="Add-game" onClick={this.addGame.bind(this)}>Add</p></div>)
+        }else{
+            return(<p className="Add-game" onClick={this.addGame.bind(this)}>Add</p>)
+        }
+    }
+
+    updateGames(){
+        const { avatar, userName, games, steamGuardNeeded,status, actions } = this.props;
+        actions.setBot({
+            user:userName,
+            status,
+            games: this.state.games
         })
+        console.log('update undo')
+        this.setState({
+            needToUpdate: false,
+            undoGames: [...this.state.games]
+        })
+    }
+
+    undoGames(){
+        console.log(this.state.undoGames, this.state.games)
+        this.setState(
+            {games: [...this.state.undoGames],
+            needToUpdate:false
+        });
     }
 
     render() {
@@ -72,16 +127,14 @@ class Bot extends Component {
                 </div> :
                     <div className="flex-column games">
                         <p>Games playing <ion-icon name="tv"></ion-icon></p>
-                        {games.map((game, index) => {
-                            return (
-                                <ul className="gamelist">
-                                    <select className="form-control2" onChange={(e) => this.handleSelectGame(e, userName, index)}>
-                                        <option>{game}</option>
-                                        {this.renderGames(games[index])}
-                                    </select>
-                                </ul>)
-                        })}
-
+                        {this.renderGames()}
+                        {this.state.needToUpdate ? 
+                        <button className="button-save" onClick={this.updateGames.bind(this)}>Update</button>: 
+                        <button className="button-save button-hide">Update</button>}
+                         
+                         {this.state.needToUpdate ? 
+                        <button className="button-save" onClick={this.undoGames.bind(this)}>Cancel</button>: 
+                        <button className="button-save button-hide">Cancel</button>}
                     </div>}
                 <button onClick={()=> actions.removeBot({user: userName})} type="button" className="close" aria-label="Close">
                     <ion-icon name="close-circle" size="large"></ion-icon>
