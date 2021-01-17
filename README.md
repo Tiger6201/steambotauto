@@ -7,7 +7,7 @@ https://steambotauto.herokuapp.com
 ![alt text](https://i.gyazo.com/297d54bbd7c2282585b419c951f3a10d.png)
 ![alt text](https://i.gyazo.com/9a1d9105da78a00b917162aa378d339b.png)
 
-![alt text](https://www.boosting-service.com/images/steam-hour-boost.png)
+
 
 
 # Future enhancements
