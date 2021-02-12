@@ -82,6 +82,8 @@ app.post('/api/configuser', (req, res) => {
                 tableau[index] = parseInt(game);
             })
 
+            userConfig.games = userConfig.games.filter((e) => isNaN(e) === false);
+
             if (userConfig.status === 'online')
                 userConfig.status = 1;
 
@@ -120,9 +122,9 @@ app.post('/api/connect', (req, res) => {
         console.log('Disconnected');
     }).then((steamguard) => {
         if (steamguard === "steamguard") {
-            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status, steamGuardNeeded: true } }));
+            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: [], status: bot.status, steamGuardNeeded: true } }));
         } else {
-            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: ['', '', ''], status: bot.status } }))
+            res.send(JSON.stringify({ connected: true, user: { user: req.body.user, avatar: bot.avatar, games: [], status: bot.status } }))
         }
         bots.push(bot)
     }).catch(err => {

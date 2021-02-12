@@ -64,7 +64,7 @@ class Bot extends Component {
     }
 
     addGame(){
-        let tempGames = this.state.games;
+        let tempGames = [...this.props.games];
         tempGames.push('');
         this.setState({games:tempGames})
         this.needToUpdate();
@@ -78,13 +78,13 @@ class Bot extends Component {
     }
 
     renderGames(ga) {
-        const {games} = this.state;
+        const games = this.state.needToUpdate ? this.state.games : this.props.games
         if(games.length){
             return (<div>{games.map((item, index)=>{
                 return (<div style={{"display":"block"}}><input key={index} onChange={(event)=>this.handleChangeGame(event, index)} value={item} /><span className="delete-game" onClick={() => this.deleteGame(index)}>x</span></div>) 
-            })}<p className="Add-game" onClick={this.addGame.bind(this)}>Add</p></div>)
+            })}{this.state.needToUpdate ? null : <p className="Add-game" onClick={this.addGame.bind(this)}>Add</p>}</div>)
         }else{
-            return(<p className="Add-game" onClick={this.addGame.bind(this)}>Add</p>)
+            return(<div>{this.state.needToUpdate ? null:<p className="Add-game" onClick={this.addGame.bind(this)}>Add</p>}</div>)
         }
     }
 
