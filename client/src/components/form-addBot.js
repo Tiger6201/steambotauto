@@ -36,7 +36,7 @@ class FormAddBot extends Component {
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input class="form-control" key="password" value={this.state.password} placeholder="Password" onChange={(e) => this.handleChange(e, 'password')}></input>
+          <input class="form-control" type="password" key="password" value={this.state.password} placeholder="Password" onChange={(e) => this.handleChange(e, 'password')}></input>
         </div>
         <button type="submit" class="btn btn-primary" onClick={() => actions.addBot({ user: this.state.user, password: this.state.password })}>Submit</button>
 

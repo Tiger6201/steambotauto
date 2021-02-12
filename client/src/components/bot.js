@@ -8,7 +8,7 @@ class Bot extends Component {
         this.state = {
             steamguard: '',
             needToUpdate: false,
-            games:[],
+            games:[], // this is the client side games
             undoGames:[]
         }
     }
@@ -25,7 +25,7 @@ class Bot extends Component {
     }
 
     handleSelectGame(e, user, index) {
-        const { games, actions, status } = this.props;
+        const { games, actions, status } = this.props; // props.games is server side
 
         let Tempgames = games;
         Tempgames[index] = e.currentTarget.value;
