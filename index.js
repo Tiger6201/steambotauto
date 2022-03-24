@@ -182,7 +182,7 @@ app.post('/api/removebot', (req, res) => {
 setInterval(() => {
 
     if (hostName) {
-        http.get("http://" + hostName);
+        http.get("https://" + hostName);
     }
 
 }, 300000);
