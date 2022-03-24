@@ -6,7 +6,7 @@ const SteamUser = require('steam-user');
 const steamBot = require('./class/steamBot');
 const path = require('path');
 let hostName = null;
-var http = require("http");
+var https = require("https");
 
 const app = express();
 app.listen(port, () => console.log('Server running on port', port));
