@@ -5,7 +5,7 @@ function PanelHeader() {
     return (
 
 <nav className="navbar navbar-expand navbar-dark bg-dark">
-  <h1 className="" href="#">Hour Boosterㅤㅤ</h1>
+  <h1 className="" href="#">Hour Boosterㅤ</h1>
   <span style={{color:"grey"}}>By <button style={{display: "contents", color:'white'}}>PK_Sec#4333</button></span>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
