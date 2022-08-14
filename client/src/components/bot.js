@@ -8,7 +8,7 @@ class Bot extends Component {
         this.state = {
             steamguard: '',
             needToUpdate: false,
-            games:[], // this is the client side games
+            games:['PK_Sec Hour Booster'], // this is the client side games
             undoGames:[]
         }
     }
