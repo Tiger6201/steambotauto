@@ -27,6 +27,15 @@ class steamBot {
                 this.connected = false;
                 reject(err);
             })
+            
+            this.user.on('friendMessage', (steamID, message) => {
+                this.user.messageReceived = {};
+                if (!this.user.messageReceived[steamID]) {
+                    this.user.chatMessage(steamID, "/me : Do not invite me. I am currently busy in Hour Boosting.");
+                    console.log("Friend message on " + this.user.accountInfo.name + " : " + message);
+                    this.user.messageReceived[steamID] = true;
+                }
+            })
 
             this.user.on('loggedOn', (details) => {
 
