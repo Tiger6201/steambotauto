@@ -1,7 +1,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3333
+const port = process.env.PORT || 8443
 const SteamUser = require('steam-user');
 const steamBot = require('./class/steamBot');
 const path = require('path');
